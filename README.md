@@ -1,1 +1,1 @@
-# serailization-and-crud-django-rest-framework
+Rest api to communicate with db server
