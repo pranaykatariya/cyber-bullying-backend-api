@@ -11,6 +11,8 @@ from .models import Task
 from django.core.mail import send_mail, EmailMessage
 from django.template.loader import get_template
 from django.conf import settings
+
+import json
 # Create your views here.
 
 @api_view(['GET'])
@@ -71,20 +73,23 @@ def taskDelete(request, pk):
 
 
 @api_view(['POST'])
-def sendMail(request, pk):
-	subject = "Create Your Slambook: Slambox"    
-    
-	message = get_template('pages/promotionformat.html').render()
-    
+def sendMail(request, pk):	
+
+	# parse json data:
+	json_object = json.dumps(request.data)   
+	y = json.loads(json_object)
+
+	print(y['message'])
+		
+	subject = "Bullying of <userid> <username>"    
+	message = "Hello sir/ma'am, \nThis is auto generated mail from bullied tweet. Details of victim and abuser is as follows.\nTake the necessary actions. \nVictim username and location: \nVictim's tweet: [message]. \nAbuser's username and location: [username and location] \n Abuser's tweet: [abuser message] \n Thanks and regards, \nTeam Elite"
 	to = ['pranaykatariya1@gmail.com']
-   
-	print("email to person")
-	to[0] = "mail to person"
+   	
+	to[0] = y['to']
 	msg = EmailMessage(subject=subject, body=message, from_email= settings.EMAIL_HOST_USER, to= to)
-	msg.content_subtype = 'html'
-        
+	        
 	try:
 		msg.send()
 		return Response('Mail sent succsesfully!')
 	except :
-		return Response('Mail failed to send')
+		return Response('Mail failed to send')	
