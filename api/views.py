@@ -79,10 +79,11 @@ def sendMail(request, pk):
 	json_object = json.dumps(request.data)   
 	y = json.loads(json_object)
 
-	print(y['message'])
+	# print(y['message'])
 		
-	subject = "Bullying of <userid> <username>"    
-	message = "Hello sir/ma'am, \nThis is auto generated mail from bullied tweet. Details of victim and abuser is as follows.\nTake the necessary actions. \nVictim username and location: \nVictim's tweet: [message]. \nAbuser's username and location: [username and location] \n Abuser's tweet: [abuser message] \n Thanks and regards, \nTeam Elite"
+	subject = "Bullying of <userid> <username>"
+	subject = "Bullying of "+ y['to_user_id'] + " "+ y['to_user']    
+	message = "Hello sir/ma'am, \nThis is auto generated mail from bullied tweet. Details of victim and abuser is as follows.\nTake the necessary actions. \n"+  y['to_user']+ " and "+ y['location_me']+  ":" + "\nVictim's tweet: [message]. \nAbuser's username and location: "+ y['from_user']+" and "+ y['location_bully']+  "\nAbuser's tweet: "+  y['bully_tweet']+ "\nThanks and regards, \nTeam Elite"
 	to = ['pranaykatariya1@gmail.com']
    	
 	to[0] = y['to']
