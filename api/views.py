@@ -15,6 +15,11 @@ from django.conf import settings
 import json
 # Create your views here.
 
+
+def homeView(request):
+	return render(request, 'main.html')
+
+
 @api_view(['GET'])
 def apiOverview(request):
 	api_urls = {
