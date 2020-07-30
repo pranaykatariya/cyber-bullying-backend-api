@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 
@@ -6,7 +6,7 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .serializers import TaskSerializer
 
-from .models import Task
+from .models import Task, Admin_Messages
 
 from django.core.mail import send_mail, EmailMessage
 from django.template.loader import get_template
@@ -19,6 +19,18 @@ import json
 def homeView(request):
 	return render(request, 'main.html')
 
+
+
+def contact_page(request):    
+	if request.method == 'POST':
+		name = request.POST['name']
+		email = request.POST['email']
+		mess = request.POST['message']
+		msg = Admin_Messages(name=name,email=email,message=mess)
+		msg.save()
+		return redirect('/#three')
+	else:    
+		return render(request, '/#three')
 
 @api_view(['GET'])
 def apiOverview(request):

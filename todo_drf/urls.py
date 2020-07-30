@@ -16,10 +16,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
-from api.views import homeView
+from api.views import homeView, contact_page
 
 urlpatterns = [
     path('', homeView, name="homeView"),
+    path('add', contact_page, name="contact_page"),
+    
     path('admin/', admin.site.urls),
     path('api/', include('api.urls')),
 ]

@@ -14,3 +14,9 @@ class Task(models.Model):
       
   def __str__(self):
     return self.title
+
+
+class Admin_Messages(models.Model):
+    name = models.CharField(max_length=64)
+    email = models.EmailField(null=False)
+    message = models.TextField(null=True, blank=True)
