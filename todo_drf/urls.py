@@ -16,12 +16,15 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
-from api.views import homeView, contact_page
+from api.views import homeView, contact_page, profile, hashtagTwitter
 
 urlpatterns = [
     path('', homeView, name="homeView"),
     path('add', contact_page, name="contact_page"),
     
+    path('hashtag-twitter', hashtagTwitter, name="hashtag-twitter"),
+    path('profile', profile, name="profile"),
+
     path('admin/', admin.site.urls),
     path('api/', include('api.urls')),
 ]
