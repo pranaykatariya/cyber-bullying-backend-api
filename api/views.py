@@ -239,7 +239,7 @@ def profile(request):
 									'location_me':location_me,
 									'bully_rate':prediction,
 									'time_now':time_created,
-									'to':'pranaykatariya1@gmail.com'}
+									'to':'pratikbansode2@gmail.com'}
 					requests.post(url = url, data = details_object)
 					requests.post(url = email_url,data = email_object)
 					#api.update_status("@" + status.author.screen_name+"\n You should stop bullying people. (I am a bot in testing, don't take this too seriously)",in_reply_to_status_id= tweet_id)
