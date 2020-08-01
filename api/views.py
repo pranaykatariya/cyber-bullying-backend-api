@@ -239,7 +239,7 @@ def profile(request):
 									'location_me':location_me,
 									'bully_rate':prediction,
 									'time_now':time_created,
-									'to':'pratikbansode2@gmail.com'}
+									'to':'pranaykatariya1@gmail.com'}
 					requests.post(url = url, data = details_object)
 					requests.post(url = email_url,data = email_object)
 					#api.update_status("@" + status.author.screen_name+"\n You should stop bullying people. (I am a bot in testing, don't take this too seriously)",in_reply_to_status_id= tweet_id)
@@ -353,10 +353,35 @@ def sendMail(request, pk):
 	y = json.loads(json_object)
 
 	# print(y['message'])
-		
+	if y['to_user_id'] is None:
+		y['to_user_id'] = " "
+	
+	if y['to_user'] is None:
+		y['to_user'] = " "
+	
+	str1 = ""
+	str2 = ""
+    
+    # traverse in the string   
+    
+	for ele in y['to_user_id']: 
+    	
+		str1 += str(ele)
+    
+	for elem in y['to_user']:  
+    	
+		str2 += elem
+    
+
 	subject = "Bullying of <userid> <username>"
-	subject = "Bullying of "+ y['to_user_id'] + " "+ y['to_user']    
-	message = "Hello sir/ma'am, \nThis is auto generated mail from bullied tweet. Details of victim and abuser is as follows.\nTake the necessary actions. \n"+  y['to_user']+ " and "+ y['location_me']+  ":" + "\nVictim's tweet: [message]. \nAbuser's username and location: "+ y['from_user']+" and "+ y['location_bully']+  "\nAbuser's tweet: "+  y['bully_tweet']+ "\nThanks and regards, \nTeam Elite"
+	# subject = "Bullying of "+ y['to_user_id'] + " "+ y['to_user']
+	
+	if len(str1.strip()) == 0:
+		subject = "Bullying spotted"
+	else:
+		subject = "Bullying of "+ str1 + " "+ str2    
+	
+	message = "Hello sir/ma'am, \nThis is auto generated mail from bullied tweet. Details of victim and abuser is as follows.\nTake the necessary actions. \n"+  str2 + " and "+ y['location_me']+  ":" + "\nVictim's tweet: [message]. \nAbuser's username and location: "+ y['from_user']+" and "+ y['location_bully']+  "\nAbuser's tweet: "+  y['bully_tweet']+ "\nThanks and regards, \nTeam Elite"
 	to = ['pranaykatariya1@gmail.com']
    	
 	to[0] = y['to']
@@ -365,5 +390,5 @@ def sendMail(request, pk):
 	try:
 		msg.send()
 		return Response('Mail sent succsesfully!')
-	except :
+	except:
 		return Response('Mail failed to send')	

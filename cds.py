@@ -64,9 +64,11 @@ for status in tweepy.Cursor(api.home_timeline,exclude_replies=True).items(5):
                         'location_me':location_me,
                         'bully_rate':prediction,
                         'time_now':time_now,
-                        'to':'pratikbansode2@gmail.com'}
+                        'to':'pranaykatariya1@gmail.com'}
         requests.post(url = url, data = details_object)
-        #requests.post(url = email_url,data = email_object)
+        requests.post(url = email_url,data = email_object)
+        print(email_object)
+        print('mail sent')
         #api.update_status("@" + status.author.screen_name+"\n You should stop bullying people. (I am a bot in testing, don't take this too seriously)",in_reply_to_status_id= tweet_id)
     else:
         print ("not bullying")
