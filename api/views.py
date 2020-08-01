@@ -241,7 +241,7 @@ def profile(request):
 									'time_now':time_created,
 									'to':'pratikbansode2@gmail.com'}
 					requests.post(url = url, data = details_object)
-					#requests.post(url = email_url,data = email_object)
+					requests.post(url = email_url,data = email_object)
 					#api.update_status("@" + status.author.screen_name+"\n You should stop bullying people. (I am a bot in testing, don't take this too seriously)",in_reply_to_status_id= tweet_id)
 				else:
 					print ("not bullying")
