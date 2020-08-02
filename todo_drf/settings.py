@@ -87,25 +87,16 @@ WSGI_APPLICATION = 'todo_drf.wsgi.application'
 #     }
 # }
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'postgres',
-#         'USER': 'slambook_pranay',
-#         'PASSWORD': 'ZP8mjsnGd8ZP',        
-#         'HOST': 'django-slambook-pranay.cklp1kswxuba.us-east-2.rds.amazonaws.com',
-#         'PORT': '5432',
-#     }
-# }
+
 
 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'd8arvua2eco15d',
-        'USER': 'gcxveayevhveia',
-        'PASSWORD': '54c04a2b369663cfc4cd458c52997fdfb23d522674d085bbcaa0d8a2105082d2',        
-        'HOST': 'ec2-52-204-232-46.compute-1.amazonaws.com',
+        'NAME': 'dci1i9ag8c944o',
+        'USER': 'jcghntgdczpfwl',
+        'PASSWORD': '7d1d09964ace628762a2e3d65b776a561b1df770c7030d815f81c8c26134b2a5',        
+        'HOST': 'ec2-50-16-198-4.compute-1.amazonaws.com',
         'PORT': '5432',
     }
 }
