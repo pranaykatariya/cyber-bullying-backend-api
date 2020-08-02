@@ -273,6 +273,14 @@ def profile(request):
 
 
 def homeView(request):
+
+	if request.user.is_authenticated:
+		print('pranay')
+		ctx ={
+        	'data' : 'pranay',
+    	}
+	else:
+		print('noone')
 	return render(request, 'main.html')
 
 
