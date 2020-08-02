@@ -20,3 +20,48 @@ class Admin_Messages(models.Model):
     name = models.CharField(max_length=64)
     email = models.EmailField(null=False)
     message = models.TextField(null=True, blank=True)
+
+
+
+class AadharCard(models.Model):
+    firstname = models.CharField(max_length=64)
+    lastname = models.CharField(max_length=64,null=True, blank=True)
+    email = models.EmailField(null=False)
+    aadharno = models.CharField(max_length=64)
+    dob = models.DateField(null=True, blank=True)
+    mobile = models.CharField(max_length=64,null=True, blank=True)
+
+
+class Report(models.Model):
+  complain_id = models.AutoField(primary_key=True)
+  complainer = models.CharField(max_length=64)
+  victim = models.CharField(max_length=64)
+  abuser = models.CharField(max_length=64)
+  tweet = models.TextField(null=True, blank=True)
+  completed = models.CharField(max_length=64)
+  time_now = models.DateTimeField(auto_now_add=True)
+
+
+class Image(models.Model):
+  complain_id = models.AutoField(primary_key=True)
+  platform_id = models.CharField(max_length=64)
+  url = models.CharField(max_length=128)
+  platform = models.CharField(max_length=64)
+  result = models.CharField(max_length=64)
+  time_now = models.DateTimeField(auto_now_add=True)
+
+
+class Video(models.Model):
+  complain_id = models.AutoField(primary_key=True)
+  platform_id = models.CharField(max_length=64)
+  url = models.CharField(max_length=128)
+  platform = models.CharField(max_length=64)
+  result = models.CharField(max_length=64)
+  time_now = models.DateTimeField(auto_now_add=True)
+
+
+class Web(models.Model):
+  complain_id = models.AutoField(primary_key=True)
+  url = models.CharField(max_length=128)
+  result = models.CharField(max_length=64)
+  time_now = models.DateTimeField(auto_now_add=True)

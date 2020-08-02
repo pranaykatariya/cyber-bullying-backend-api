@@ -4,9 +4,9 @@ from django.views.decorators.csrf import csrf_exempt
 
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from .serializers import TaskSerializer
+from .serializers import TaskSerializer, ReportSerializer, AadharSerializer, ImageSerializer, WebSerializer, VideoSerializer
 
-from .models import Task, Admin_Messages
+from .models import Task, Admin_Messages, Report, AadharCard, Image, Video, Web
 
 from django.core.mail import send_mail, EmailMessage
 from django.template.loader import get_template
@@ -291,17 +291,60 @@ def contact_page(request):
 @api_view(['GET'])
 def apiOverview(request):
 	api_urls = {
-		'List':'/task-list/',
-		'Detail View':'/task-detail/<str:pk>/',
-		'Create':'/task-create/',
-		'Update':'/task-update/<str:pk>/',
-		'Delete':'/task-delete/<str:pk>/',
+		#task list
+		'Task List':'/task-list/',
+		'Task Detail View':'/task-detail/<str:pk>/',
+		'Task Create':'/task-create/',
+		'Task Update':'/task-update/<str:pk>/',
+		'Task Delete':'/task-delete/<str:pk>/',
+
+		#report list
+		'Report List':'/report-list/',
+		'Report Detail View':'/report-detail/<str:pk>/',
+		'Report Create':'/report-create/',
+		'Report Update':'/report-update/<str:pk>/',
+		'Report Delete':'/report-delete/<str:pk>/',
+
+		
+		#aadhar list
+		'Aadhar List':'/aadhar-list/',
+		'Aadhar Detail View':'/aadhar-detail/<str:pk>/',
+		'Aadhar Create':'/aadhar-create/',
+		'Aadhar Update':'/aadhar-update/<str:pk>/',
+		'Aadhar Delete':'/aadhar-delete/<str:pk>/',
+
+
+
+		#Image list
+		'image List':'/image-list/',
+		'image Detail View':'/image-detail/<str:pk>/',
+		'image Create':'/image-create/',
+		'image Update':'/image-update/<str:pk>/',
+		'image Delete':'/image-delete/<str:pk>/',
+
+
+		
+		#video list
+		'video List':'/video-list/',
+		'video Detail View':'/video-detail/<str:pk>/',
+		'video Create':'/video-create/',
+		'video Update':'/video-update/<str:pk>/',
+		'video Delete':'/video-delete/<str:pk>/',
+	
+		
+		#web list
+		'web List':'/web-list/',
+		'web Detail View':'/web-detail/<str:pk>/',
+		'web Create':'/web-create/',
+		'web Update':'/web-update/<str:pk>/',
+		'web Delete':'/web-delete/<str:pk>/',
+
 		}
 
 	return Response(api_urls)
 
 
-
+#Task api code
 
 @api_view(['GET'])
 def taskList(request):
@@ -392,3 +435,232 @@ def sendMail(request, pk):
 		return Response('Mail sent succsesfully!')
 	except:
 		return Response('Mail failed to send')	
+
+
+#Report REST api's
+
+@api_view(['GET'])
+def reportList(request):
+	reports = Report.objects.all().order_by('-complain_id')
+	serializer = ReportSerializer(reports, many=True)
+	return Response(serializer.data)
+
+@api_view(['GET'])
+def reportDetail(request, pk):
+	reports = Report.objects.get(complain_id=pk)
+	serializer = ReportSerializer(reports, many=False)
+	return Response(serializer.data)
+
+
+@api_view(['POST'])
+@csrf_exempt
+def reportCreate(request):
+	serializer = ReportSerializer(data=request.data)
+
+	if serializer.is_valid():
+		serializer.save()
+
+	return Response(serializer.data)
+
+@api_view(['POST'])
+def reportUpdate(request, pk):
+	report = Report.objects.get(complain_id=pk)
+	serializer = ReportSerializer(instance=report, data=request.data)
+
+	if serializer.is_valid():
+		serializer.save()
+
+	return Response(serializer.data)
+
+
+@api_view(['DELETE'])
+def reportDelete(request, pk):
+	report = Report.objects.get(complain_id=pk)
+	task.delete()
+
+	return Response('Item succsesfully delete!')
+
+
+
+
+#Aadhar REST api's
+
+@api_view(['GET'])
+def aadharList(request):
+	aadhar = AadharCard.objects.all()
+	serializer = AadharSerializer(aadhar, many=True)
+	return Response(serializer.data)
+
+
+@api_view(['GET'])
+def aadharDetail(request, pk):
+	aadhar = AadharCard.objects.get(aadharno=pk)
+	serializer = AadharSerializer(aadhar, many=False)
+	return Response(serializer.data)
+
+
+@api_view(['POST'])
+@csrf_exempt
+def aadharCreate(request):
+	serializer = AadharSerializer(data=request.data)
+
+	if serializer.is_valid():
+		serializer.save()
+
+	return Response(serializer.data)
+
+@api_view(['POST'])
+def aadharUpdate(request, pk):
+	aadhar = AadharCard.objects.get(aadharno=pk)
+	serializer = AadharSerializer(instance=aadhar, data=request.data)
+
+	if serializer.is_valid():
+		serializer.save()
+
+	return Response(serializer.data)
+
+
+@api_view(['DELETE'])
+def aadharDelete(request, pk):
+	aadhar = AadharCard.objects.get(aadharno=pk)
+	aadhar.delete()
+
+	return Response('Item succsesfully delete!')
+
+
+
+
+#Image REST api's
+
+@api_view(['GET'])
+def imageList(request):
+	image = Image.objects.all()
+	serializer = ImageSerializer(image, many=True)
+	return Response(serializer.data)
+
+
+@api_view(['GET'])
+def imageDetail(request, pk):
+	image = Image.objects.get(complain_id=pk)
+	serializer = ImageSerializer(image, many=False)
+	return Response(serializer.data)
+
+
+@api_view(['POST'])
+@csrf_exempt
+def imageCreate(request):
+	serializer = ImageSerializer(data=request.data)
+
+	if serializer.is_valid():
+		serializer.save()
+
+	return Response(serializer.data)
+
+@api_view(['POST'])
+def imageUpdate(request, pk):
+	image = Image.objects.get(complain_id=pk)
+	serializer = ImageSerializer(instance=image, data=request.data)
+
+	if serializer.is_valid():
+		serializer.save()
+
+	return Response(serializer.data)
+
+
+@api_view(['DELETE'])
+def imageDelete(request, pk):
+	image = Image.objects.get(complain_id=pk)
+	image.delete()
+
+	return Response('Item succsesfully delete!')
+
+
+
+#Video REST api's
+
+@api_view(['GET'])
+def videoList(request):
+	video = Video.objects.all()
+	serializer = VideoSerializer(video, many=True)
+	return Response(serializer.data)
+
+
+@api_view(['GET'])
+def videoDetail(request, pk):
+	video = Video.objects.get(complain_id=pk)
+	serializer = VideoSerializer(video, many=False)
+	return Response(serializer.data)
+
+
+@api_view(['POST'])
+@csrf_exempt
+def videoCreate(request):
+	serializer = VideoSerializer(data=request.data)
+
+	if serializer.is_valid():
+		serializer.save()
+
+	return Response(serializer.data)
+
+@api_view(['POST'])
+def videoUpdate(request, pk):
+	video = Video.objects.get(complain_id=pk)
+	serializer = VideoSerializer(instance=video, data=request.data)
+
+	if serializer.is_valid():
+		serializer.save()
+
+	return Response(serializer.data)
+
+
+@api_view(['DELETE'])
+def videoDelete(request, pk):
+	video = Video.objects.get(complain_id=pk)
+	video.delete()
+
+	return Response('Item succsesfully delete!')
+
+
+#Web REST api's
+
+@api_view(['GET'])
+def webList(request):
+	web = Web.objects.all()
+	serializer = WebSerializer(web, many=True)
+	return Response(serializer.data)
+
+
+@api_view(['GET'])
+def webDetail(request, pk):
+	web = Web.objects.get(complain_id=pk)
+	serializer = WebSerializer(web, many=False)
+	return Response(serializer.data)
+
+
+@api_view(['POST'])
+@csrf_exempt
+def webCreate(request):
+	serializer = WebSerializer(data=request.data)
+
+	if serializer.is_valid():
+		serializer.save()
+
+	return Response(serializer.data)
+
+@api_view(['POST'])
+def webUpdate(request, pk):
+	web = Web.objects.get(complain_id=pk)
+	serializer = WebSerializer(instance=web, data=request.data)
+
+	if serializer.is_valid():
+		serializer.save()
+
+	return Response(serializer.data)
+
+
+@api_view(['DELETE'])
+def webDelete(request, pk):
+	web = Web.objects.get(complain_id=pk)
+	web.delete()
+
+	return Response('Item succsesfully delete!')
