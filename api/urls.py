@@ -45,7 +45,7 @@ urlpatterns = [
 	#video api
 	path('video-list/', views.videoList, name="video-list"),
 	path('video-detail/<str:pk>/', views.videoDetail, name="video-detail"),
-	path('video-create/', csrf_exempt(views.videoCreate), name="video-create"),
+	path('video-create/', csrf_exempt(views.videoCreate), name="video-create"), 
 
 	path('video-update/<str:pk>/', views.videoUpdate, name="video-update"),
 	path('video-delete/<str:pk>/', views.videoDelete, name="video-delete"),
