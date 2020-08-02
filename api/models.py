@@ -53,11 +53,12 @@ class Image(models.Model):
 
 class Video(models.Model):
   complain_id = models.AutoField(primary_key=True)
-  platform_id = models.CharField(max_length=64)
+  platform_id = models.CharField(max_length=64, null=True, blank=True)
   url = models.CharField(max_length=128)
-  platform = models.CharField(max_length=64)
-  result = models.CharField(max_length=64)
+  platform = models.CharField(max_length=64, null=True, blank=True)
+  result = models.CharField(max_length=64, null=True, blank=True)
   time_now = models.DateTimeField(auto_now_add=True)
+
 
 
 class Web(models.Model):
