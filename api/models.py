@@ -34,9 +34,9 @@ class AadharCard(models.Model):
 
 class Report(models.Model):
   complain_id = models.AutoField(primary_key=True)
-  complainer = models.CharField(max_length=64)
-  victim = models.CharField(max_length=64)
-  abuser = models.CharField(max_length=64)
+  complainer = models.CharField(max_length=64,null=True, blank=True)
+  victim = models.CharField(max_length=64,null=True, blank=True)
+  abuser = models.CharField(max_length=64,null=True, blank=True)
   tweet = models.TextField(null=True, blank=True)
   completed = models.CharField(max_length=64)
   time_now = models.DateTimeField(auto_now_add=True)
