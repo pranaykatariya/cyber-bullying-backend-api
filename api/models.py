@@ -45,6 +45,7 @@ class Report(models.Model):
 class Image(models.Model):
   complain_id = models.AutoField(primary_key=True)
   platform_id = models.CharField(max_length=64, null=True, blank=True)
+  username = models.CharField(max_length=64, null=True, blank=True)
   url = models.CharField(max_length=128)
   platform = models.CharField(max_length=64, null=True, blank=True)
   result = models.CharField(max_length=64, null=True, blank=True)
@@ -54,6 +55,7 @@ class Image(models.Model):
 class Video(models.Model):
   complain_id = models.AutoField(primary_key=True)
   platform_id = models.CharField(max_length=64, null=True, blank=True)
+  username = models.CharField(max_length=64, null=True, blank=True)
   url = models.CharField(max_length=128)
   platform = models.CharField(max_length=64, null=True, blank=True)
   result = models.CharField(max_length=64, null=True, blank=True)
