@@ -45,9 +45,9 @@ class WebAdmin(admin.ModelAdmin):
 
 admin.site.register(Image, ImageAdmin)
 admin.site.register(Video, VideoAdmin)
-admin.site.register(Web, WebAdmin)
+# admin.site.register(Web, WebAdmin)
 
 admin.site.register(Task, TaskAdmin)
 admin.site.register(Admin_Messages, AdminMessage)
-admin.site.register(AadharCard, AadharAdmin)
+# admin.site.register(AadharCard, AadharAdmin)
 admin.site.register(Report,ReportAdmin)
