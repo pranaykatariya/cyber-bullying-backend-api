@@ -427,12 +427,12 @@ def sendMail(request, pk):
 
 
     # send email code
-    subject = "Elit Projects: Your Project Mate"    
+    subject = "Monetize Your B.E. Projects !!"    
     message = get_template('promotionformat.html').render()
     to = ['pranaykatariya1@gmail.com']
     pass_counter = 0
     fail_counter = 0
-    for x in data[:90]:
+    for x in data[:400]:
         print(x)
         to[0] = x
         msg = EmailMessage(subject=subject, body=message, from_email= settings.EMAIL_HOST_USER, to= to)
