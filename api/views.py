@@ -18,6 +18,11 @@ import time
 from tweepy import OAuthHandler
 import requests
 
+
+from django.core.mail import send_mail, EmailMessage
+from django.conf import settings
+from django.template.loader import get_template
+
 import re
 import json
 # Create your views here.
@@ -396,53 +401,117 @@ def taskDelete(request, pk):
 	return Response('Item succsesfully delete!')
 
 
+
 @api_view(['POST'])
-def sendMail(request, pk):	
-
-	# parse json data:
-	json_object = json.dumps(request.data)   
-	y = json.loads(json_object)
-
-	# print(y['message'])
-	if y['to_user_id'] is None:
-		y['to_user_id'] = " "
-	
-	if y['to_user'] is None:
-		y['to_user'] = " "
-	
-	str1 = ""
-	str2 = ""
+def sendMail(request, pk):    
     
-    # traverse in the string   
+    # Add email data
+    data = ['pranaykatariya1@gmail.com','ajaychordiya24@gmail.com', 'vishalpatil7860@gmail.com']
+
+    # code for uploading email data to database server
+    # for i in data:
+    #     obj = Promotion_Email_List(email= i)
+        
+    #     try:
+    #         obj.save()
+    #         print(i)
+    #     except:
+    #         print("Exception occured: "+i)
+
+    json_object = json.dumps(request.data)
+    y = json.loads(json_object)
     
-	for ele in y['to_user_id']: 
+    data = y['email']
+    print('data')
+    print(data)
+
+
+    # send email code
+    subject = "Elit Projects: Your Project Mate"    
+    message = get_template('promotionformat.html').render()
+    to = ['pranaykatariya1@gmail.com']
+    pass_counter = 0
+    fail_counter = 0
+    for x in data[:90]:
+        print(x)
+        to[0] = x
+        msg = EmailMessage(subject=subject, body=message, from_email= settings.EMAIL_HOST_USER, to= to)
+        msg.content_subtype = 'html'
+        
+        try:
+            msg.send()
+            pass_counter+=1
+            # Promotion_Email_List.objects.filter(email=x.email).update(sent=True)
+            print("Mail sent to "+ x)
+            print(pass_counter+fail_counter)
+        except:
+            fail_counter+=1
+            print("Mail failed: "+ x)
+    
+    
+
+    print("Email sending job end here is your task summarry:")
+    print("Successfully sent: "+str(pass_counter))
+    print("sending failed: "+str(fail_counter))
+    
+            
+    ctx ={    
+        # 'authorization' : authorization,
+        # 'result': result
+    }
+
+    return Response('Successfully sent '+str(pass_counter))
+    
+
+
+
+# @api_view(['POST'])
+# def sendMail(request, pk):	
+
+# 	# parse json data:
+# 	json_object = json.dumps(request.data)   
+# 	y = json.loads(json_object)
+
+# 	# print(y['message'])
+# 	if y['to_user_id'] is None:
+# 		y['to_user_id'] = " "
+	
+# 	if y['to_user'] is None:
+# 		y['to_user'] = " "
+	
+# 	str1 = ""
+# 	str2 = ""
+    
+#     # traverse in the string   
+    
+# 	for ele in y['to_user_id']: 
     	
-		str1 += str(ele)
+# 		str1 += str(ele)
     
-	for elem in y['to_user']:  
+# 	for elem in y['to_user']:  
     	
-		str2 += elem
+# 		str2 += elem
     
 
-	subject = "Bullying of <userid> <username>"
-	# subject = "Bullying of "+ y['to_user_id'] + " "+ y['to_user']
+# 	subject = "Bullying of <userid> <username>"
+# 	# subject = "Bullying of "+ y['to_user_id'] + " "+ y['to_user']
 	
-	if len(str1.strip()) == 0:
-		subject = "Bullying spotted"
-	else:
-		subject = "Bullying of "+ str1 + " "+ str2    
+# 	if len(str1.strip()) == 0:
+# 		subject = "Bullying spotted"
+# 	else:
+# 		subject = "Bullying of "+ str1 + " "+ str2    
 	
-	message = "Hello sir/ma'am, \nThis is auto generated mail from bullied tweet. Details of victim and abuser is as follows.\nTake the necessary actions. \n"+  str2 + " and "+ y['location_me']+  ":" + "\nVictim's tweet: [message]. \nAbuser's username and location: "+ y['from_user']+" and "+ y['location_bully']+  "\nAbuser's tweet: "+  y['bully_tweet']+ "\nThanks and regards, \nTeam Elite"
-	to = ['pranaykatariya1@gmail.com']
+# 	message = "Hello sir/ma'am, \nThis is auto generated mail from bullied tweet. Details of victim and abuser is as follows.\nTake the necessary actions. \n"+  str2 + " and "+ y['location_me']+  ":" + "\nVictim's tweet: [message]. \nAbuser's username and location: "+ y['from_user']+" and "+ y['location_bully']+  "\nAbuser's tweet: "+  y['bully_tweet']+ "\nThanks and regards, \nTeam Elite"
+# 	to = ['pranaykatariya1@gmail.com']
    	
-	to[0] = y['to']
-	msg = EmailMessage(subject=subject, body=message, from_email= settings.EMAIL_HOST_USER, to= to)
+# 	to[0] = y['to']
+# 	msg = EmailMessage(subject=subject, body=message, from_email= settings.EMAIL_HOST_USER, to= to)
 	        
-	try:
-		msg.send()
-		return Response('Mail sent succsesfully!')
-	except:
-		return Response('Mail failed to send')	
+# 	try:
+# 		msg.send()
+# 		return Response('Mail sent succsesfully!')
+# 	except:
+# 		return Response('Mail failed to send')	
 
 
 #Report REST api's
